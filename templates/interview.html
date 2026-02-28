@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+  This demonstration shows how a candidate might perform an interview exercise with audio input.
+  In the SQE2 assessment the candidate would prepare and then conduct a client interview,
+  followed by an attendance note/legal analysis.
+</p>
+
+{% if not audio_available %}
+  <p><em>
+    Speech recognition and text-to-speech libraries are not installed.
+    Install speechrecognition and gtts to enable audio functionality.
+  </em></p>
+{% else %}
+  {% if not transcript %}
+    <p>
+      When ready, press the start button below to record your response.
+      The application will stop recording after one minute.
+    </p>
+    <form method="post" enctype="multipart/form-data">
+      <button type="submit" class="btn btn-primary">Start Recording</button>
+    </form>
+  {% else %}
+    <h3>Transcript</h3>
+    <pre>{{ transcript }}</pre>
+  {% endif %}
+{% endif %}
+{% endblock %}

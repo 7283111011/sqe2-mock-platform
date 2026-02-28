@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<p>{{ description }}</p>
+
+<form method="post">
+  <div class="mb-3">
+    <label for="response" class="form-label">Your response</label>
+    <textarea class="form-control" id="response" name="response" rows="10" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit for feedback</button>
+</form>
+
+{% if feedback %}
+<hr>
+<h3>Feedback</h3>
+<p>
+  The following scores are provided against the published criteria. A score of 5 corresponds to superior performance,
+  3 corresponds to a clear pass and 0 indicates a poor attempt.
+</p>
+<ul>
+  {% for criterion, score in feedback.items() %}
+    <li><strong>{{ criterion }}</strong>: {{ score }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

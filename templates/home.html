@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+  This mock platform provides practice exercises for the written components of SQE2: case and matter analysis,
+  legal research, legal writing and legal drafting. Select an exercise below and receive feedback.
+</p>
+
+<ul class="list-group">
+  <li class="list-group-item"><a href="{{ url_for('exercise', name='case') }}">Case and matter analysis</a></li>
+  <li class="list-group-item"><a href="{{ url_for('exercise', name='research') }}">Legal research</a></li>
+  <li class="list-group-item"><a href="{{ url_for('exercise', name='writing') }}">Legal writing</a></li>
+  <li class="list-group-item"><a href="{{ url_for('exercise', name='drafting') }}">Legal drafting</a></li>
+  <li class="list-group-item"><a href="{{ url_for('interview') }}">Interview and attendance note (audio demo)</a></li>
+</ul>
+{% endblock %}

@@ -21,7 +21,7 @@ integrate robust natural language processing services and ensure
 appropriate security and privacy measures.
 """
 
-from flask import Flask, render_template_string, request
+from flask import Flask, render_template, request
 from typing import Dict, Any, Tuple
 
 # Optional imports for speech recognition and text to speech.
@@ -392,8 +392,7 @@ def evaluate_drafting(response: str) -> Dict[str, int]:
 
 @app.route('/')
 def home() -> str:
-    return render_template_string(HOME_TEMPLATE, base=BASE_TEMPLATE, title="SQE2 Mock Practice Platform", feedback=None)
-
+    return render_template("home.html", title="SQE2 Mock Practice Platform")
 
 @app.route('/exercise/<name>', methods=['GET', 'POST'])
 def exercise(name: str) -> str:
@@ -423,14 +422,12 @@ def exercise(name: str) -> str:
     if request.method == 'POST':
         response_text = request.form.get('response', '')
         feedback = evaluator(response_text)
-    return render_template_string(
-        EXERCISE_TEMPLATE,
-        base=BASE_TEMPLATE,
-        title=name.capitalize() + " Exercise",
-        description=description,
-        feedback=feedback
-    )
-
+    return render_template(
+    "exercise.html",
+    title=name.capitalize() + " Exercise",
+    description=description,
+    feedback=feedback
+)
 
 @app.route('/interview', methods=['GET', 'POST'])
 def interview() -> str:
@@ -444,14 +441,12 @@ def interview() -> str:
             transcript = recognizer.recognize_google(audio_data)
         except Exception:
             transcript = "(Could not transcribe audio)"
-    return render_template_string(
-        INTERVIEW_TEMPLATE,
-        base=BASE_TEMPLATE,
+    return render_template(
+        "interview.html",
         title="Interview and Attendance Note Demo",
         audio_available=AUDIO_AVAILABLE,
         transcript=transcript
     )
-
 
 ######################################################################
 # Application entry point
